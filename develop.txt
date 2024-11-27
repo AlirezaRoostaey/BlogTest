@@ -1,0 +1,41 @@
+Auth :
+
+using sanctum
+for sending Email Otp using Mail Facade and a template located in resources/views/emails/otp.blade.php
+   $emailService = new OtpEmail($name, $otp);
+   $result = Mail::to($email)->send($emailService);
+
+on the other hand save the otp code into Cache with a expiration-time of 3 min
+
+        Cache::put($email, $otp, 3);
+that when the email of user has been verified will be omitted
+
+when email of user verified we update the user with the given data and also the field email_verified_at to now
+and then we will return the accessToken of user to save it in frontEnd
+
+we have ForgetPassword
+that send otpEmail to given email
+and then can verify the otp sent to email and then change the old password to given password by another web service
+
+Admin:
+
+first creating EnsureIsAdminMiddleware that checks the user role should be admin (we have three roles written inside UserRole enum)
+NOTE : we dont have a End point for changing user role and that take place inside the tinker if i wanted to
+
+in category we have a filed named parent_id that refers to categories.id it self
+and i write a method inside Category model named childrenRecursive to get all the children of a category
+
+then
+we Have CRUD for categories and blogs
+to handle the requests i have written requests rules
+
+Client :
+
+i write two controllers named BlogController and CategoryController
+to handle the requests for client side
+to see blogs and categories and change the response data inside a Resources
+
+routes :
+i put all the apis inside v1 folder to separate different versions of project and give all of them a prefix of "v1"
+
+

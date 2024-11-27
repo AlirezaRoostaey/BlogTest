@@ -1,0 +1,46 @@
+Requirements
+PHP ^8.2
+Composer
+
+
+Installation
+To set up the project, follow these steps:
+
+Clone the Repository:
+
+git clone https://github.com/AlirezaRoostaey/BlogTest.git
+cd BlogTest
+Install Dependencies:
+
+Use Composer to install the required dependencies:
+
+composer install
+Set Up Environment File:
+the example environment file and update the necessary configurations:
+
+cp .env.example .env
+Generate Application Key:
+
+Generate the application key:
+php artisan key:generate
+
+Run Migrations:
+
+Set up the database by running migrations. Make sure your database is configured in the .env file:
+php artisan migrate
+
+Start the Development Server:
+You can start the Laravel development server using:
+php artisan serve
+
+Also you need to run worker on queues:
+php artisan queue:work
+
+NOTE : pleas consider that you have to add your email server
+credentials to .env
+
+The application will be available at http://localhost:8000
+
+NOTE you need to run tinker
+    php artisan tinker
+and then update your user role to "admin" to be able to send api to admin routes
