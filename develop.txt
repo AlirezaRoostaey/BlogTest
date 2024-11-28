@@ -41,4 +41,18 @@ to see blogs and categories and change the response data inside a Resources
 routes :
 i put all the apis inside v1 folder to separate different versions of project and give all of them a prefix of "v1"
 
+Tests:
+i have written tests for almost every endpoint of this project and for some of them multi state of a single endpoint
+for example testUpdate() and also testUpdateNotFound()
+to check (almost) all the possibilities
+
+NOTE:: MAKE SURE TO RUN TESTs AFTER EVERY CHANGES APPLIED TO PROJECT
+
+DATABASE :
+
+i had some migrations for modifying the current tables but after running them i have removed them
+and the changes to the original create migration of the table for more readability
+
+i have written factories and also seeders to easily see the data when project is just ran
+
 
