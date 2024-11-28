@@ -16,8 +16,7 @@ all of the documentation is in file below
 
 download and import it to Postman
 
-    https://drive.google.com/file/d/12RVrMwBC3wk5jfjneC8rV99F_VumirZJ/view?usp=drive_link
-
+    https://drive.google.com/file/d/1xudIslSnu6PF1Fi9hdAs1rortQnGD6XW/view?usp=drive_link
 ## Installation
 
 To set up the project, follow these steps:
