@@ -16,7 +16,7 @@ class BlogStoreRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:256'],
             'slug' => ['required', 'string', 'max:256'],
-            'context' => ['required'],
+            'content' => ['required'],
             'publish_at' => ['required', 'date'],
             'category_id' => ['required', 'exists:categories,id'],
             'status' => ['required', 'in:draft,approved'],

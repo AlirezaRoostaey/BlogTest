@@ -20,7 +20,7 @@ class BlogFactory extends Factory
 
             'title' => $this->faker->word,
             'slug' => $this->faker->word,
-            'context' => $this->faker->sentence,
+            'content' => $this->faker->sentence,
             'publish_at' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
             'category_id' => Category::factory(),
             'user_id' => User::factory(),

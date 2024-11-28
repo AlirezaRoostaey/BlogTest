@@ -16,7 +16,7 @@ class BlogUpdateRequest extends FormRequest
         return [
             'title' => ['nullable', 'string', 'max:256'],
             'slug' => ['nullable', 'string', 'max:256'],
-            'context' => ['nullable'],
+            'content' => ['nullable'],
             'publish_at' => ['nullable', 'date'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'status' => ['required', 'in:draft,approved'],

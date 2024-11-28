@@ -25,8 +25,7 @@
 </head>
 <body>
 <div class="header">
-    <h1>Welcome to Our Cryptocurrency Gateway</h1>
-    <p>Your trusted partner in cryptocurrency transactions.</p>
+    <h1>Welcome to Our Blog </h1>
 </div>
 
 <div class="content">

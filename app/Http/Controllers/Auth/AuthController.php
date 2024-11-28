@@ -30,6 +30,9 @@ class AuthController extends Controller
         ]);
         $otp = random_int(10000, 99999);
 
+        if (!$this->ensureOtpWasIsExpired($validated['email'])) {
+            return $this->error([], 'Your previous OTP has not expired yet, please wait.');
+        }
 
         dispatch(function () use ($otp, $validated) {
             $this->processOtp($otp, $validated['email']);
@@ -37,6 +40,7 @@ class AuthController extends Controller
 
         return $this->success($user, 'user has been created now verify your email');
     }
+
     public function reSendOtp(Request $request): JsonResponse
     {
 
@@ -51,6 +55,9 @@ class AuthController extends Controller
 
             $otp = random_int(10000, 99999);
 
+            if (!$this->ensureOtpWasIsExpired($validated['email'])) {
+                return $this->error([], 'Your previous OTP has not expired yet, please wait.');
+            }
 
             dispatch(function () use ($otp, $validated) {
                 $this->processOtp($otp, $validated['email']);
@@ -135,6 +142,9 @@ class AuthController extends Controller
 
         if($user){
 
+            if (!$this->ensureOtpWasIsExpired($validated['email'])) {
+                return $this->error([], 'Your previous OTP has not expired yet, please wait.');
+            }
 
             dispatch(function () use ($otp, $validated) {
                 $this->processOtp($otp, $validated['email']);
@@ -146,6 +156,7 @@ class AuthController extends Controller
         }
 
     }
+
     public function forgetPasswordVerifyOtp(ForgetPasswordVerifyOtp $request): JsonResponse
     {
 
@@ -178,8 +189,6 @@ class AuthController extends Controller
 
     private function processOtp($otp, $email): void
     {
-//        $hashedOtp = Hash::make($otp);
-
 
         Cache::put($email, $otp, 120);
 
@@ -196,4 +205,12 @@ class AuthController extends Controller
         }
 
     }
+
+    private function ensureOtpWasIsExpired($email): bool
+    {
+        $oldOtp = Cache::get($email);
+
+        return !$oldOtp; // Return true if OTP has expired, false otherwise
+    }
+
 }

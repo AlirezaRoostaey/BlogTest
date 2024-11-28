@@ -22,7 +22,7 @@ class ClientTest extends TestCase
         $response = $this->getJson($this->baseUrl.'blogs');
 
         $response->assertStatus(200)
-            ->assertJsonStructure(['data' => [['title', 'slug', 'context', 'author', 'category']]]);
+            ->assertJsonStructure(['data' => [['title', 'slug', 'content', 'author', 'category']]]);
     }
     public function testBlog()
     {
@@ -33,7 +33,7 @@ class ClientTest extends TestCase
         $response = $this->getJson($this->baseUrl.'blogs/'.$blog->slug);
 
         $response->assertStatus(200)
-            ->assertJsonStructure(['data' => ['title', 'slug', 'context', 'author', 'category']]);
+            ->assertJsonStructure(['data' => ['title', 'slug', 'content', 'author', 'category']]);
     }
     public function testAllCategories()
     {

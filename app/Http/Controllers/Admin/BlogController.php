@@ -42,14 +42,14 @@ class BlogController extends Controller
     public function store(BlogStoreRequest $request): JsonResponse
     {
 
-        $validated = $request->safe()->only(['title', 'slug', 'context', 'publish_at', 'category_id', 'status']);
+        $validated = $request->safe()->only(['title', 'slug', 'content', 'publish_at', 'category_id', 'status']);
 
 
 
         $blogs = Blog::create([
             'title' => $validated['title'],
             'slug' => Str::slug($validated['slug']),
-            'context' => $validated['context'],
+            'content' => $validated['content'],
             'category_id' => $validated['category_id'],
             'publish_at' => $validated['publish_at'] ?? Carbon::now(),
             'user_id' => $request->user()->id,
@@ -60,7 +60,7 @@ class BlogController extends Controller
 
     public function update(BlogUpdateRequest $request, $id): JsonResponse
     {
-        $validated = $request->safe()->only(['title', 'slug', 'context', 'publish_at', 'category_id', 'status']);
+        $validated = $request->safe()->only(['title', 'slug', 'content', 'publish_at', 'category_id', 'status']);
 
         $blog = Blog::find($id);
         if($blog){

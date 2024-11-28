@@ -59,7 +59,7 @@ class AdminBlogTest extends TestCase
             ->putJson($this->baseUrl . $blog->id, [
                 'title' => 'Updated Blog Title',
                 'slug' => 'updated-blog-title',
-                'context' => 'Updated context for the blog.',
+                'content' => 'Updated content for the blog.',
                 'publish_at' => now(),
                 'category_id' => $blog->category_id,
                 'status' => 'draft',
