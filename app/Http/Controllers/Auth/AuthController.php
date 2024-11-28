@@ -101,7 +101,12 @@ class AuthController extends Controller
     {
 
         $validated = $request->safe()->only(['email', 'password']);
+        $user = User::where('email', $validated['email'])->first();
 
+        if (!$user  or $user->email_verified_at == null){
+
+            return $this->error([], 'verify your email first');
+        }
         if (Auth::attempt($validated)){
             $user = $request->user();
             $token = $user->createToken('Auth Token')->plainTextToken;

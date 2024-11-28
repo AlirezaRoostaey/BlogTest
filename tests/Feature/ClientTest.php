@@ -11,6 +11,8 @@ use Tests\TestCase;
 
 class ClientTest extends TestCase
 {
+
+    use RefreshDatabase;
     protected string $baseUrl = '/api/v1/';
     public function testAllBlogs()
     {

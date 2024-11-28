@@ -18,7 +18,10 @@ that send otpEmail to given email
 and then can verify the otp sent to email and then change the old password to given password by another web service
 
 Admin:
-
+we have one admin creating by seeder
+Email : admin@appeto.com
+Password : Admin1234
+you can login with
 first creating EnsureIsAdminMiddleware that checks the user role should be admin (we have three roles written inside UserRole enum)
 NOTE : we dont have a End point for changing user role and that take place inside the tinker if i wanted to
 

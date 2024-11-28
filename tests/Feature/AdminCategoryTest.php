@@ -10,6 +10,7 @@ use Tests\TestCase;
 class AdminCategoryTest extends TestCase
 {
 
+    use RefreshDatabase;
     protected string $baseUrl = '/api/v1/admin/categories/';
     public function testIndex()
     {

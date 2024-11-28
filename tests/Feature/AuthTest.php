@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Mail\Auth\OtpEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Cache;
@@ -51,7 +52,7 @@ class AuthTest extends TestCase
 
     public function testLoginSuccessful()
     {
-        $user = User::create(['email' => 'test@example.com', 'password' => Hash::make('password')]);
+        $user = User::create(['email' => 'test@example.com', 'email_verified_at' => Carbon::now(),'password' => Hash::make('password')]);
 
         $response = $this->postJson($this->baseUrl.'login', [
             'email' => 'test@example.com',
