@@ -29,22 +29,5 @@ class OtpEmail extends Mailable
             'otp' => $this->otp
         ]);
     }
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Appeto Verification Email',
-        );
-    }
 
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.otp',
-        );
-    }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

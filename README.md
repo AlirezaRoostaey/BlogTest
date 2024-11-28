@@ -107,3 +107,6 @@ and it would not show to client blogs that are draft or is archived
 
 
 and with the Admin/Blogs/archive you archive a Blog and then you can restore it with Admin/Blog/restore archive web service by sending blogId of deleted blog
+
+### WARNING : 
+if you dont have an email server you can get the OTP code from storage Logs ;)
