@@ -15,9 +15,11 @@ Route::prefix('v1')->group(function () {
 
 
         Route::post('/send-otp', 'sendOtp');
+        Route::post('/resend-otp', 'reSendOtp');
         Route::post('/verify-otp', 'verifyOtp');
         Route::post('/login', 'login');
-        Route::post('/forget-password', 'forgetPassword');
+        Route::post('/forget-password/send-otp', 'forgetPasswordSendOtp');
+        Route::post('/forget-password/verify-otp', 'forgetPasswordVerifyOtp');
     });
 
     Route::controller(BlogController::class)
@@ -35,7 +37,7 @@ Route::prefix('v1')->group(function () {
 
 
             Route::get('/categories', 'allCategories');
-            Route::get('/categories/{slug}', 'show');
+            Route::get('/categories/{id}', 'show');
         });
 
     Route::prefix('admin')

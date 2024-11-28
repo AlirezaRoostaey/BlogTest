@@ -37,6 +37,32 @@ class AuthController extends Controller
 
         return $this->success($user, 'user has been created now verify your email');
     }
+    public function reSendOtp(Request $request): JsonResponse
+    {
+
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+        ]);
+
+//        dd(Cache::get($validated['email']));
+        $user = User::where('email', $validated['email'])->first();
+
+        if($user){
+
+            $otp = random_int(10000, 99999);
+
+
+            dispatch(function () use ($otp, $validated) {
+                $this->processOtp($otp, $validated['email']);
+            });
+
+
+            return $this->success($user, 'otp email has been sent again now verify your email');
+        }else{
+
+            return $this->error([], 'user not found', 404);
+        }
+    }
 
     public function verifyOtp(VerifyOtpRequest $request): JsonResponse
     {
@@ -48,6 +74,7 @@ class AuthController extends Controller
             $otp = Cache::get($validated['email']);
 
             if($otp && $otp == $validated['otp']){
+
 
                 $user->update([
                     'password' => Hash::make($validated['password']),
@@ -87,16 +114,22 @@ class AuthController extends Controller
         }
     }
 
-    public function forgetPasswordSendOtp(SendOtpRequest $request): JsonResponse
+    public function forgetPasswordSendOtp(Request $request): JsonResponse
     {
 
-        $validated = $request->safe()->only(['email']);
+
+        $validated = $request->validate([
+            'email' => ['required', 'email', 'max:255'],
+        ]);
+
+
 
         $otp = random_int(10000, 99999);
 
         $user = User::where('email', $validated['email'])->first();
 
         if($user){
+
 
             dispatch(function () use ($otp, $validated) {
                 $this->processOtp($otp, $validated['email']);
@@ -118,12 +151,13 @@ class AuthController extends Controller
 
             $otp = Cache::get($validated['email']);
 
+
             if($otp && $otp == $validated['otp']){
 
                 $user->update([
                     'password' => Hash::make($validated['password']),
                 ]);
-                Cache::delete($validated['email']);
+
                 return $this->success([], 'Password Has Been Changed Successfully');
             }else{
 
@@ -141,8 +175,8 @@ class AuthController extends Controller
     {
 //        $hashedOtp = Hash::make($otp);
 
-        Cache::put($email, $otp, 3);
 
+        Cache::put($email, $otp, 120);
 
         $name = Str::before($email, '@');
 
@@ -151,7 +185,10 @@ class AuthController extends Controller
         $emailService = new OtpEmail($name, $otp);
         $result = Mail::to($email)->send($emailService);
 
-        Log::warning($result->toString());
+        if($result){
+
+            Log::warning($result->toString());
+        }
 
     }
 }

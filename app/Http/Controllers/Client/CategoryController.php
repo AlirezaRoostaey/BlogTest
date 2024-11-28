@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Client\BlogResource;
 use App\Http\Resources\Client\CategoryResource;
 use App\Models\Blog;
 use App\Models\Category;
@@ -20,13 +21,10 @@ class CategoryController extends Controller
         return $this->success(CategoryResource::collection($categories), 'all categories');
     }
 
-    public function show($slug): JsonResponse
+    public function show($id): JsonResponse
     {
-        $blog = Blog::
-            where('slug', $slug)
-            ->where('publish_at', '<=' , Carbon::now())
-            ->first();
+        $category = Category::with('childrenRecursive')->find($id);
 
-        return $blog ? $this->success($blog) : $this->error([], 'Not Found', 404);
+        return $category ? $this->success(new CategoryResource($category)) : $this->error([], 'Not Found', 404);
     }
 }
