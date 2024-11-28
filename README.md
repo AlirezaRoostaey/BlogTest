@@ -85,3 +85,25 @@ Password :
 
     Admin1234
 you can login with
+
+
+# Usage
+
+you can see all the blogs and its data in Admin/Blog/all blogs endpoint
+
+inside this Request we have some params like :
+
+archived :: that is bool and you can send 1 to see the archived blogs and 0 to see normal blogs 
+
+status :: is draft or approved you choose between it
+
+user_id :: with this you can say blogs of which user to show you
+
+category_id :: with this you can say blogs of which category to show you
+
+NOTE :: in blogs web service for clients 
+you have only user_id and category_id to choose 
+and it would not show to client blogs that are draft or is archived
+
+
+and with the Admin/Blogs/archive you archive a Blog and then you can restore it with Admin/Blog/restore archive web service by sending blogId of deleted blog

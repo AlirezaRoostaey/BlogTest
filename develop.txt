@@ -32,6 +32,9 @@ then
 we Have CRUD for categories and blogs
 to handle the requests i have written requests rules
 
+NOTICE : I have cached  the categories index method but when ever a change has been committed to table of categories
+the cache will be removed
+
 Client :
 
 i write two controllers named BlogController and CategoryController
@@ -46,7 +49,7 @@ i have written tests for almost every endpoint of this project and for some of t
 for example testUpdate() and also testUpdateNotFound()
 to check (almost) all the possibilities
 
-NOTE:: MAKE SURE TO RUN TESTs AFTER EVERY CHANGES APPLIED TO PROJECT
+NOTE:: MAKE SURE TO REMOVE THE "RefreshDatabase"  TRAIT IN PRODUCTION MODE
 
 DATABASE :
 

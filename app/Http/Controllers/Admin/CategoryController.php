@@ -5,16 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\CategoryStoreRequest;
 use App\Http\Requests\Admin\Category\CategoryUpdateRequest;
+use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
 
     public function index(): JsonResponse
     {
+        $cacheKey = 'all_categories';
 
-        $categories = Category::get();
+        $categories = Cache::remember($cacheKey, 60, function ()  {
+            return Category::get();
+        });
+
         return $this->success($categories);
     }
 
