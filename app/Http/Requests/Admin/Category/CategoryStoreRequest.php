@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Category;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryStoreRequest extends FormRequest
@@ -16,7 +17,15 @@ class CategoryStoreRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:256'],
             'description' => ['required', 'string', 'max:2048'],
-            'parent_id' => ['nullable', 'exists:categories,id'],
+            'parent_id' => [
+                'nullable',
+                'exists:categories,id',
+                function ($attribute, $value, $fail) {
+                    if ($value !== null && Category::withTrashed()->where('id', $value)->whereNotNull('deleted_at')->exists()) {
+                        $fail('The selected parent category has been deleted.');
+                    }
+                },
+            ],
         ];
     }
 }

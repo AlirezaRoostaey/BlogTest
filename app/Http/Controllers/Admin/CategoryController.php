@@ -53,6 +53,10 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if($category){
+            if (isset($validated['parent_id']) && $category->id == $validated['parent_id']){
+
+                return $this->error([], 'OFF COURSE NOT', 500);
+            }
 
             $category->update($validated);
             return $this->success($category, 'category Updated Successfully');
